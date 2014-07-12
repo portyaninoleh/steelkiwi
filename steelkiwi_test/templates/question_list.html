@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% load filters %}
+    <table class="table table-striped">
+        <tbody>
+            {% for question in questions %}
+                <tr>
+                    <td>
+                        <ul class="list-group">
+                            <li>
+                                <a href="/?question={{ question.id }}">{{ question.subject }}</a>
+                            </li>
+                            <li>
+                                {{ question.user }}  {{ question.date|time_formatter:'%Y/%m/%d %H:%M:%S' }}
+                            </li>
+                            <li>
+                                {{ question.body|format_question_body:'100' }}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td>There are no questions yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

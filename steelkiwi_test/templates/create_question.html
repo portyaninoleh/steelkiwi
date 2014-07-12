@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Question List{% endblock %}
+
+{% block body %}
+{% load filters %}
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <h1>QUESTIONS</h1>
+            <form action="/" method="POST"> {% csrf_token %}
+                <input type="hidden" name="user" value="{{ user.id }}"/>
+                {{ form.non_fields_errors }}
+                <div class="form-group">
+                    <label for="id_subject">{{ form.subject.label }}</label>
+                    {{ form.subject|add_class:'form-control' }}
+                </div>
+                <div class="form-group">
+                    <label for="id_body">{{ form.body.label }}</label>
+                    {{ form.body|add_class:'form-control' }}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

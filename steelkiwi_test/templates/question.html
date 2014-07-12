@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% load filters %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <h2>{{ question.user }} asks:</h2>
+            <p>{{ question.subject }}</p>
+            <hr/>
+            <p>{{ question.body }}</p>
+            <h6>{{ question.date|time_formatter:'%Y/%m/%d %H:%M:%S' }}</h6>
+            <hr/>
+            <h2>Answers</h2>
+            <ul class="list-group">
+                {% for response in responses %}
+                    <li class="list-group-item">
+                        <p>{{ response.message }}</p>
+                        <h5>{{ response.user }}</h5>
+                        <h6>{{ response.date|time_formatter:'%Y/%m/%d %H:%M:%S' }}</h6>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form action="/response/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="question" value="{{ question.id }}"/>
+                <div class="form-group">
+                    <label for="response-field">Add Your Response</label>
+                    <textarea class="form-control" id="response-field" name="response"></textarea>
+                </div>
+                {% if user.id %}
+                    <button type="submit" class="btn btn-default">Submit</button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
