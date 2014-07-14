@@ -27,7 +27,7 @@
                     <label for="response-field">Add Your Response</label>
                     <textarea class="form-control" id="response-field" name="response"></textarea>
                 </div>
-                {% if user.id %}
+                {% if user.id and user.is_active %}
                     <button type="submit" class="btn btn-default">Submit</button>
                 {% endif %}
             </form>

@@ -2,6 +2,7 @@
 
 {% block body %}
     {% load filters %}
+    {% load bootstrap_pagination %}
     <table class="table table-striped">
         <tbody>
             {% for question in questions %}
@@ -25,4 +26,6 @@
             {% endfor %}
         </tbody>
     </table>
+{#     {{ page_obj }}#}
+     {% bootstrap_paginate questions url_base_view='question_list' %}
 {% endblock %}

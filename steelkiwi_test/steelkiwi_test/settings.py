@@ -36,11 +36,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_auth',
     'stackoverflow_test',
+    'bootstrap_pagination',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -98,12 +101,29 @@ TEMPLATE_DIRS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
+    'django.core.context_processors.request',
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.static",
-    "stackoverflow_test.context_processors.navbar_login_form",
+    "stackoverflow_test.context_processors.user_context_processor",
+    # 'social_auth.context_processors.social_auth_by_name_backends',
+    # 'social_auth.context_processors.social_auth_backends',
+    # 'social_auth.context_processors.social_auth_by_type_backends',
+    # 'social_auth.context_processors.social_auth_login_redirect',
 )
 
 LOGIN_REDIRECT_URL = '/login/'
+LOGIN_URL          = '/login/'
+LOGIN_ERROR_URL    = '/login/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+FACEBOOK_APP_ID = '784338948294344'
+FACEBOOK_API_SECRET = '776e112bb2994441803374534114b61b'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+)
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']

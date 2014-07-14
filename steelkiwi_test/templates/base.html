@@ -13,29 +13,23 @@
             <a class="navbar-brand" href="/">Stackoverflow</a>
         </div>
         <div class="collapse navbar-collapse">
-            {% if user.id %}
-                <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.id %}
+                    {% if user.is_active %}
+                        <li><a href="/new_question/">Add Question</a></li>
+                    {% endif %}
                     <li><a href="/logout/">Logout</a></li>
-                </ul>
-            {% else %}
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <form action="/login/" method="post" class="navbar-form navbar-right"> {% csrf_token %}
-                            <div class="form-group">
-                                {{ login_form.username|add_class:'form-control' }}
-                            </div>
-                            <div class="form-group">
-                                {{ login_form.password|add_class:'form-control' }}
-                            </div>
-                            <button type="submit" class="btn btn-default">Log in</button>
-                        </form>
-                    </li>
+                {% else %}
                     <li><a href="/signup/">Sign Up</a></li>
-                </ul>
-            {% endif %}
+                    <li><a href="/login/">Login</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>
+{% if user.id and not user.is_active %}
+    <div class="alert alert-danger">To use all privileges of your account you must activate it</div>
+{% endif %}
 {% block body %}{% endblock %}
 </body>
 </html>
